@@ -6,10 +6,9 @@
 
   "content_scripts": [
     {
-      "matches": [
-        "*://*.youtube.com/watch?v=*"
-      ],
-      "css": ["content.css"],
+      "matches": ["*://*.youtube.com/watch?v=*"],
+      "run_at": "document_start",
+      "css": ["content.css"]
     }
   ]
 }
