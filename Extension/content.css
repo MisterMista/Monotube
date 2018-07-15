@@ -1,6 +1,9 @@
 #player,#info,#meta{
   margin:0 auto;
 }
-#related, #comments{
+#related, #comments, #more{
   display:none;
+}
+ytd-expander{
+    --ytd-expander-collapsed-height: auto !important;
 }
