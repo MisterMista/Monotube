@@ -8,7 +8,11 @@
     {
       "matches": ["*://*.youtube.com/watch?v=*"],
       "run_at": "document_start",
-      "css": ["content.css"]
+      "css": ["content.css"],
+      "js": ["content.js"]
     }
-  ]
+  ],
+  "background": {
+      "scripts": ["background.js"]
+  }
 }
