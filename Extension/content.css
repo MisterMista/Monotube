@@ -1,9 +1,13 @@
 #player,#info,#meta{
   margin:0 auto;
 }
-#related, #comments, #more{
+#related, #comments, #more, ytd-browse, #dismissable, yt-next-continuation, ytd-item-section-renderer{
   display:none;
 }
 ytd-expander{
     --ytd-expander-collapsed-height: auto !important;
+}
+ytd-browse{
+  height:1px;
+  overflow: hidden;
 }
