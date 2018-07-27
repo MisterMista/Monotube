@@ -1,3 +1,7 @@
+/*
+Centers video, title, and description
+Without this, removing the reccomended video will leave a hole in the side of the page
+*/
 #player,#info,#meta{
   margin:0 auto;
 }
@@ -6,6 +10,7 @@
 #related: div that holds reccomeneded and related videos when watching a youtube video
 #comments: div that holds the comments
 #more: button that says 'show more' and expands video description when clicked
+
 #secondary: div that holds related videos
 */
 #related, #comments, #more, #secondary{
@@ -29,7 +34,9 @@ video{
 ytd-expander{
     --ytd-expander-collapsed-height: auto !important;
 }
+
 /*Hides all video on homepage, but also hides all vidoes on channel page*/
+
 ytd-browse{
   height:1px;
   overflow: hidden;
