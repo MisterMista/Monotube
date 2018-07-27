@@ -1,12 +1,25 @@
+/*
+Centers video, title, and description
+Without this, removing the reccomended video will leave a hole in the side of the page
+*/
 #player,#info,#meta{
   margin:0 auto;
 }
 #related, #comments, #more, ytd-browse, #dismissable, yt-next-continuation, ytd-item-section-renderer{
+/*
+#related: div that holds reccomeneded and related videos when watching a youtube video
+#comments: div that holds the comments
+#more: button that says 'show more' and expands video description when clicked
+*/
   display:none;
 }
+/*Make video description full height instead of partially hidden*/
 ytd-expander{
     --ytd-expander-collapsed-height: auto !important;
 }
+/*
+Hides all video on homepage, but also hides all vidoes on channel page
+*/
 ytd-browse{
   height:1px;
   overflow: hidden;
