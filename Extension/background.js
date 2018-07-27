@@ -4,10 +4,10 @@ https://developer.chrome.com/extensions/events
 https://www.w3schools.com/js/js_timing.asp
 */
 
+//Timer code
 var time = 0;
 
 var tabsOpen = 0;
-
 
 
 chrome.runtime.onMessage.addListener(
@@ -27,3 +27,4 @@ chrome.runtime.onMessage.addListener(
       }
     }
   }
+);

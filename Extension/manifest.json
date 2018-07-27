@@ -6,9 +6,15 @@
 
   "content_scripts": [
     {
-      "matches": ["*://*.youtube.com/*"],
+      "matches": ["*://*.youtube.com/","*://*.youtube.com/watch?v=*"],
       "run_at": "document_start",
       "css": ["content.css"],
+      "js": []
+    },
+    {
+      "matches": ["*://*.youtube.com/*"],
+      "run_at": "document_start",
+      "css": [],
       "js": ["content.js"]
     }
   ],
