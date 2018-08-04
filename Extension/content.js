@@ -17,7 +17,6 @@ document.addEventListener("yt-navigate-start",
   function(){
     //The element with id 'progress' is the red loading bar that appears
     //when navigating between pages
-    console.log("spfdone");
     window.location.reload(false);
   }
 );
@@ -25,9 +24,3 @@ document.addEventListener("yt-navigate-start",
 //Timer code
 
 chrome.runtime.sendMessage({"message":"youtube_opened"});
-console.log("ytoSend");
-
-/*chrome.tabs.onRemoved.addListener(function() {
-  chrome.runtime.sendMessage({"message":"youtube_closed"});
-  console.log("ytcSend");
-});*/

@@ -18,6 +18,8 @@ https://www.w3schools.com/js/js_timing.asp
 //clean up css and get rid of old code
 //Make bg only query tabs if youtube is open
 
+console.log("background.js loaded");
+
 //Timer code
 var time = 0;
 
@@ -26,14 +28,12 @@ var time = 0;
 var youtubeOpen = 0;
 chrome.browserAction.setBadgeText({text: "init"});
 chrome.browserAction.setBadgeBackgroundColor({color: [0, 127, 127, 255]});
-console.log("bg.js loaded");
+
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
     if(request.message === "youtube_opened") {
-      console.log("ytoRec");
       if(!youtubeOpen) {
         timer = setInterval(function() {
-          console.log("tick")
           time++
           youtubeOpen = 1;
           chrome.browserAction.setBadgeText({text:time.toString()});
@@ -46,21 +46,15 @@ chrome.runtime.onMessage.addListener(
 
 chrome.tabs.onRemoved.addListener(function() {
   chrome.tabs.query({},function(tabs){
-    console.log("Tab close check");
-    var pattern = /youtube.com/i;
     //count hold the number of tabs with youtube
     var count = 0;
     tabs.forEach(function(tab){
-      console.log(tab.url);
       //String.match() returns an array of all matches
-      console.log(tab.url.match(pattern))
-      if (tab.url.match(pattern) != null) {
+      if (tab.url.match(/youtube.com/i) != null) {
         count++;
       }
     });
-    console.log(count)
     if (count === 0) {
-      console.log("stop")
       clearInterval(timer);
       youtubeOpen = 0;
       chrome.browserAction.setBadgeBackgroundColor({color: [127, 127, 127, 255]});
