@@ -17,16 +17,17 @@ document.addEventListener("yt-navigate-start",
   function(){
     //The element with id 'progress' is the red loading bar that appears
     //when navigating between pages
-    console.log("spfdone")
+    console.log("spfdone");
     window.location.reload(false);
   }
 );
 
 //Timer code
-/*
-chrome.runtime.sendMessage({"message":"youtube_opened"})
 
-chrome.tabs.onRemoved.addListener(function() {
-  chrome.runtime.sendMessage({"message":"youtube_closed"})
-});
-*/
+chrome.runtime.sendMessage({"message":"youtube_opened"});
+console.log("ytoSend");
+
+/*chrome.tabs.onRemoved.addListener(function() {
+  chrome.runtime.sendMessage({"message":"youtube_closed"});
+  console.log("ytcSend");
+});*/
