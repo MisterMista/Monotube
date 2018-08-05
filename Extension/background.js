@@ -47,8 +47,6 @@ chrome.runtime.onMessage.addListener(
 //Everytime a tab is closed, this listener checks all the open tabs, and if
 //alteast one tab is youtube, nothing will happen, if no tab has youtube,
 //then the timer is stopped and the badge color changes to grey
-
-}
 chrome.tabs.onRemoved.addListener(function() {
   if (isYoutubeOpen) {
     chrome.tabs.query({},function(tabs){
