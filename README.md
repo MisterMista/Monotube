@@ -3,5 +3,4 @@ Stay focused on YouTube by removing suggested videos, so you can watch what you 
 
 ## TODO
  - Create an icon
- - Add browser action badge that shows total time on YouTube for a certain amount of time (per day, per week, etc)
  - Add dark mode
