@@ -6,7 +6,6 @@ https://www.w3schools.com/js/js_timing.asp
 
 //TODO:
 //Make official icon for extension
-//Convert time to hours:minutes instead of seconds
 //Have time reset at a settable time and check against system clock (3am)
 //Have toggleable dev mode flag that will display init badge and console logs
 //Document/comment code so myself and others can comprehend it(content and background scripts)
@@ -16,7 +15,9 @@ https://www.w3schools.com/js/js_timing.asp
 console.log("background.js loaded");
 
 //Timer code
-var time = 0;
+var sec = 0;
+var min = 0;
+var hour = 0;
 
 //0 - youtube is not open
 //1 - youtube is open
@@ -33,10 +34,40 @@ chrome.runtime.onMessage.addListener(
       //If youtube opens and is not already open, start the timer and update the badge
       if(!isYoutubeOpen) {
         timer = setInterval(function() {
-          time++
           isYoutubeOpen = 1;
-          chrome.browserAction.setBadgeText({text:time.toString()});
-          chrome.browserAction.setBadgeBackgroundColor({color: [255, 127, 127, 255]});
+
+          sec++;
+          if (sec >= 60) {
+            sec = sec % 60;
+            min ++;
+            if (min >= 60) {
+              min = min % 60;
+              hour ++;
+            }
+          }
+
+          var time;
+          var firstPos; //holds number for large number in timer (i.e. `5` in `5:27`)
+          var secPos; //holds number for small number in timer (i.e. `4` in `1:04`)
+          if (hour === 0) {  //display minutes : seconds
+            firstPos = min;
+            secPos = sec;
+          } else {  //display hours : minutes
+            firstPos = hour;
+            secPos = min;
+          }
+          if (secPos < 10) {
+            secPos = "0" + secPos;
+          }
+          time = firstPos + ":" + secPos;
+
+          chrome.browserAction.setBadgeText({text:time});
+          if (hour === 0) {
+            chrome.browserAction.setBadgeBackgroundColor({color: [255, 127, 127, 255]});
+          } else {
+            chrome.browserAction.setBadgeBackgroundColor({color: [127, 0, 0, 255]});
+          }
+
         }, 1000);
       }
     }
