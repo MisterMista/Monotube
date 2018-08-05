@@ -11,7 +11,7 @@ a more elegant solution in the future.
 */
 console.log("content.js loaded");
 
-////Url update listener which refreshes the page
+//Url update listener which refreshes the page
 
 document.addEventListener("yt-navigate-start",
   function(){
@@ -22,5 +22,4 @@ document.addEventListener("yt-navigate-start",
 );
 
 //Timer code
-
 chrome.runtime.sendMessage({"message":"youtube_opened"});
