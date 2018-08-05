@@ -47,17 +47,15 @@ chrome.runtime.onMessage.addListener(
 chrome.tabs.onRemoved.addListener(function() {
   if (isYoutubeOpen) {
     chrome.tabs.query({},function(tabs){
-      //count hold the number of tabs with youtube
-      var count = 0;
+      isYoutubeOpen = 0;
       tabs.forEach(function(tab){
         //String.match() returns an array of all matches
         if (tab.url.match(/youtube.com/i) != null) {
-          count++;
+          isYoutubeOpen = 1;
         }
       });
-      if (count === 0) {
+      if (!isYoutubeOpen) {
         clearInterval(timer);
-        isYoutubeOpen = 0;
         chrome.browserAction.setBadgeBackgroundColor({color: [127, 127, 127, 255]});
       }
     });
