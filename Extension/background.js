@@ -5,9 +5,6 @@ https://www.w3schools.com/js/js_timing.asp
 */
 
 //TODO:
-//Clean up code
-//Get rid of excessive console logs
-//smarter variable names
 //Make official icon for extension
 //Convert time to hours:minutes instead of seconds
 //Have time reset at a settable time and check against system clock (3am)
@@ -15,8 +12,6 @@ https://www.w3schools.com/js/js_timing.asp
 //Document/comment code so myself and others can comprehend it(content and background scripts)
 //store config in local storage somehow
 //store time so it persists through closing chrome
-//clean up css and get rid of old code
-//Make bg only query tabs if youtube is open
 
 console.log("background.js loaded");
 
@@ -26,12 +21,16 @@ var time = 0;
 //0 - youtube is not open
 //1 - youtube is open
 var isYoutubeOpen = 0;
+
+//Initializes browser action badge
 chrome.browserAction.setBadgeText({text: "init"});
 chrome.browserAction.setBadgeBackgroundColor({color: [0, 127, 127, 255]});
 
+//Message listener
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
     if(request.message === "youtube_opened") {
+      //If youtube opens and is not already open, start the timer and update the badge
       if(!isYoutubeOpen) {
         timer = setInterval(function() {
           time++
@@ -44,6 +43,12 @@ chrome.runtime.onMessage.addListener(
   }
 );
 
+//Tab close listener
+//Everytime a tab is closed, this listener checks all the open tabs, and if
+//alteast one tab is youtube, nothing will happen, if no tab has youtube,
+//then the timer is stopped and the badge color changes to grey
+
+}
 chrome.tabs.onRemoved.addListener(function() {
   if (isYoutubeOpen) {
     chrome.tabs.query({},function(tabs){

@@ -10,7 +10,6 @@ Without this, removing the reccomended video will leave a hole in the side of th
 #related: div that holds reccomeneded and related videos when watching a youtube video
 #comments: div that holds the comments
 #more: button that says 'show more' and expands video description when clicked
-
 #secondary: div that holds related videos
 */
 #related, #comments, #more, #secondary{
@@ -23,29 +22,13 @@ video{
   width: -webkit-fill-available !important;
 }
 
-/*
-.ytp-gradient-bottom{
-  width: -webkit-fill-available !important;
-  left: 0px !important;
-}
-*/
-
 /*Make video description full height instead of partially hidden*/
 ytd-expander{
     --ytd-expander-collapsed-height: auto !important;
 }
 
 /*Hides all video on homepage, but also hides all vidoes on channel page*/
-
 ytd-browse{
   height:1px;
   overflow: hidden;
 }
-
-/*Channel video browser:
-  div#dismissable.style-scope.ytd-shelf-renderer
-    div.grid-subheader.style-scope.ytd-shelf-renderer
-    div#contents.style-scope.ytd-shelf-renderer*/
-
-
-/*Channel contents fall under the class ytd-item-section-renderer*/
