@@ -25,17 +25,17 @@ var time = 0;
 
 //0 - youtube is not open
 //1 - youtube is open
-var youtubeOpen = 0;
+var isYoutubeOpen = 0;
 chrome.browserAction.setBadgeText({text: "init"});
 chrome.browserAction.setBadgeBackgroundColor({color: [0, 127, 127, 255]});
 
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
     if(request.message === "youtube_opened") {
-      if(!youtubeOpen) {
+      if(!isYoutubeOpen) {
         timer = setInterval(function() {
           time++
-          youtubeOpen = 1;
+          isYoutubeOpen = 1;
           chrome.browserAction.setBadgeText({text:time.toString()});
           chrome.browserAction.setBadgeBackgroundColor({color: [255, 127, 127, 255]});
         }, 1000);
@@ -45,19 +45,21 @@ chrome.runtime.onMessage.addListener(
 );
 
 chrome.tabs.onRemoved.addListener(function() {
-  chrome.tabs.query({},function(tabs){
-    //count hold the number of tabs with youtube
-    var count = 0;
-    tabs.forEach(function(tab){
-      //String.match() returns an array of all matches
-      if (tab.url.match(/youtube.com/i) != null) {
-        count++;
+  if (isYoutubeOpen) {
+    chrome.tabs.query({},function(tabs){
+      //count hold the number of tabs with youtube
+      var count = 0;
+      tabs.forEach(function(tab){
+        //String.match() returns an array of all matches
+        if (tab.url.match(/youtube.com/i) != null) {
+          count++;
+        }
+      });
+      if (count === 0) {
+        clearInterval(timer);
+        isYoutubeOpen = 0;
+        chrome.browserAction.setBadgeBackgroundColor({color: [127, 127, 127, 255]});
       }
     });
-    if (count === 0) {
-      clearInterval(timer);
-      youtubeOpen = 0;
-      chrome.browserAction.setBadgeBackgroundColor({color: [127, 127, 127, 255]});
-    }
-  });
+  }
 });
