@@ -16,8 +16,6 @@ console.log("background.js loaded");
 
 //Timer code
 var sec = 0;
-var min = 0;
-var hour = 0;
 
 //0 - youtube is not open
 //1 - youtube is open
@@ -27,6 +25,9 @@ var isYoutubeOpen = 0;
 chrome.browserAction.setBadgeText({text: "init"});
 chrome.browserAction.setBadgeBackgroundColor({color: [0, 127, 127, 255]});
 
+//adds leading zero to single digit number
+function pad(n){return(n<10?"0":"")+n};
+
 //Message listener
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
@@ -35,34 +36,16 @@ chrome.runtime.onMessage.addListener(
       if(!isYoutubeOpen) {
         timer = setInterval(function() {
           isYoutubeOpen = 1;
-
           sec++;
-          if (sec >= 60) {
-            sec = sec % 60;
-            min ++;
-            if (min >= 60) {
-              min = min % 60;
-              hour ++;
-            }
-          }
-
           var time;
-          var firstPos; //holds number for large number in timer (i.e. `5` in `5:27`)
-          var secPos; //holds number for small number in timer (i.e. `4` in `1:04`)
-          if (hour === 0) {  //display minutes : seconds
-            firstPos = min;
-            secPos = sec;
+          if (sec < 3600) {  //display minutes : seconds
+            time = Math.floor(sec / 60) + ":" + pad(sec % 60);
           } else {  //display hours : minutes
-            firstPos = hour;
-            secPos = min;
+            time = Math.floor(sec / 3600) + ":" + pad(sec % 3600);
           }
-          if (secPos < 10) {
-            secPos = "0" + secPos;
-          }
-          time = firstPos + ":" + secPos;
 
           chrome.browserAction.setBadgeText({text:time});
-          if (hour === 0) {
+          if (sec < 3600) {
             chrome.browserAction.setBadgeBackgroundColor({color: [255, 127, 127, 255]});
           } else {
             chrome.browserAction.setBadgeBackgroundColor({color: [127, 0, 0, 255]});
