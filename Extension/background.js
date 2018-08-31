@@ -6,7 +6,6 @@ https://www.w3schools.com/js/js_timing.asp
 
 //TODO:
 //Make official icon for extension
-//Have time reset at a settable time and check against system clock (3am)
 //Have toggleable dev mode flag that will display init badge and console logs
 
 console.log("background.js loaded");
