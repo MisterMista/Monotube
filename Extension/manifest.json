@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "Monotube",
-  "version": "0.3",
+  "version": "0.3.1",
   "description": "Stay focused on youtube",
 
   "browser_action": {
@@ -25,5 +25,5 @@
   "background": {
       "scripts": ["background.js"]
   },
-  "permissions": ["tabs", "storage"]
+  "permissions": ["tabs", "storage", "contextMenus"]
 }

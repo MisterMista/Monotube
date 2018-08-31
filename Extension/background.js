@@ -11,6 +11,17 @@ https://www.w3schools.com/js/js_timing.asp
 
 console.log("background.js loaded");
 
+//Browser action context menu code
+chrome.contextMenus.removeAll();
+chrome.contextMenus.create({
+  title: "Reset Time",
+  contexts: ["browser_action"],
+  onclick: function () {
+    clear();
+    setBadgeTime();
+  }
+});
+
 //Timer code
 var sec = 0;
 
@@ -36,14 +47,7 @@ chrome.runtime.onMessage.addListener(
         timer = setInterval(function() {
           isYoutubeOpen = 1;
           sec++;
-          var time;
-          if (sec < 3600) {  //display minutes : seconds
-            time = Math.floor(sec / 60) + ":" + pad(sec % 60);
-          } else {  //display hours : minutes
-            time = Math.floor(sec / 3600) + ":" + pad(sec % 3600);
-          }
-
-          chrome.browserAction.setBadgeText({text:time});
+          setBadgeTime();
           if (sec < 3600) {
             chrome.browserAction.setBadgeBackgroundColor({color: [255, 127, 127, 255]});
           } else {
@@ -56,6 +60,16 @@ chrome.runtime.onMessage.addListener(
   }
 );
 
+function setBadgeTime(){
+  var time;
+  if (sec < 3600) {  //display minutes : seconds
+    time = Math.floor(sec / 60) + ":" + pad(sec % 60);
+  } else {  //display hours : minutes
+    time = Math.floor(sec / 3600) + ":" + pad(sec % 3600);
+  }
+  chrome.browserAction.setBadgeText({text:time});
+}
+
 function save() {
   chrome.storage.local.set({"secStorage": sec}, function() {console.log("Saved")});
 }
@@ -67,7 +81,10 @@ function load() {
     }
   });
 }
-
+function clear() {
+  chrome.storage.local.remove("secStorage");
+  sec = 0;
+}
 //Tab close listener
 //Everytime a tab is closed, this listener checks all the open tabs, and if
 //alteast one tab is youtube, nothing will happen, if no tab has youtube,
